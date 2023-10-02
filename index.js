@@ -11,10 +11,10 @@ app.use('/test', (req, res) => {
 
     let output = "";
 
-    exec("cat /etc/os-release", (err, stdout, stderr) => {
+    exec("ls .cyclic/", (err, stdout, stderr) => {
         if (err) {
-            console.error(`Error executing cat: ${err.message}`);
-            return res.status(500).send('Error executing cat');
+            console.error(`Error executing ls: ${err.message}`);
+            return res.status(500).send('Error executing ls');
         }
 
         
