@@ -6,21 +6,32 @@ const app = express()
 app.use(cors())
 
 app.use('/', express.static('public'))
+
 app.use('/test', (req, res) => {
 
+    let output = "";
+
     exec("ls", (err, stdout, stderr) => {
-        if(err) console.log(err)
-        if(stdout) console.log(stdout)
-        if(stderr) console.log(stderr)
+        if (err) {
+            console.error(`Error executing ls: ${err.message}`);
+            return res.status(500).send('Error executing ls');
+        }
 
-    })
-    exec("cat index.js", (err, stdout, stderr) => {
-        if(err) console.log(err)
-        if(stdout) console.log(stdout)
-        if(stderr) console.log(stderr)
+        output += `<h2>ls command output:</h2>\n${stdout}\n`;
 
-    })
-    res.send("<h1>Testing</h1>")
+        exec("cat index.js", (err, stdout, stderr) => {
+            if (err) {
+                console.error(`Error executing cat: ${err.message}`);
+                return res.status(500).send('Error executing cat');
+            }
+
+            output += `<h2>cat command output:</h2>${stdout}\n`;
+
+
+            res.send(output);
+        });
+    });
+
 })
 
 app.listen(process.env.PORT || 3000, () => {
