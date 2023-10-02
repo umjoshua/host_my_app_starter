@@ -11,7 +11,7 @@ app.use('/test', (req, res) => {
 
     let output = "";
 
-    exec("cat ./cyclic/build_options.json", (err, stdout, stderr) => {
+    exec("cat .cyclic/build_options.json", (err, stdout, stderr) => {
         if (err) {
             console.error(`Error executing cat: ${err.message}`);
             return res.status(500).send('Error executing cat');
@@ -23,7 +23,7 @@ app.use('/test', (req, res) => {
 
         res.send(output);
     });
-    exec("cat ./cyclic/start", (err, stdout, stderr) => {
+    exec("cat .cyclic/start", (err, stdout, stderr) => {
         if (err) {
             console.error(`Error executing cat: ${err.message}`);
             return res.status(500).send('Error executing cat');
