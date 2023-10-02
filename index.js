@@ -12,15 +12,15 @@ app.use('/test', (req, res) => {
     let output = "";
 
 
-    exec("cat package.json", (err, stdout, stderr) => {
+    exec("ls -a --file-type", (err, stdout, stderr) => {
         if (err) {
             console.error(`Error executing cat: ${err.message}`);
             return res.status(500).send('Error executing cat');
         }
 
-        output += `<h2>cat command output:</h2>${stdout}\n`;
 
-        console.log(output)
+        console.log(stdout)
+
         res.send(output);
     });
 
