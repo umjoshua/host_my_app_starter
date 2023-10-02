@@ -11,25 +11,17 @@ app.use('/test', (req, res) => {
 
     let output = "";
 
-    exec("ls", (err, stdout, stderr) => {
+
+    exec("cat package.json", (err, stdout, stderr) => {
         if (err) {
-            console.error(`Error executing ls: ${err.message}`);
-            return res.status(500).send('Error executing ls');
+            console.error(`Error executing cat: ${err.message}`);
+            return res.status(500).send('Error executing cat');
         }
 
-        output += `<h2>ls command output:</h2>\n${stdout}\n`;
+        output += `<h2>cat command output:</h2>${stdout}\n`;
 
-        exec("cat index.js", (err, stdout, stderr) => {
-            if (err) {
-                console.error(`Error executing cat: ${err.message}`);
-                return res.status(500).send('Error executing cat');
-            }
-
-            output += `<h2>cat command output:</h2>${stdout}\n`;
-
-
-            res.send(output);
-        });
+        console.log(output)
+        res.send(output);
     });
 
 })
